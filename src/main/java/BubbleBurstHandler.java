@@ -24,7 +24,7 @@ public class BubbleBurstHandler implements EventHandler<MouseEvent> {
     @Override
     public void handle(MouseEvent mouseEvent) {
         if (mouseEvent.getClickCount() > 0) {
-            bubbleFrame.enlarge(bubble);
+            //bubbleFrame.enlarge(bubble);
             //bubbleFrame.burstTheBubble(bubble);
         } else if (mouseEvent.getEventType().equals(MouseEvent.MOUSE_ENTERED)) {
             bubble.getPanel().setCursor(Cursor.CLOSED_HAND);

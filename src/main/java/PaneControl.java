@@ -63,4 +63,8 @@ public class PaneControl {
     public boolean isIncreased() {
         return increased;
     }
+
+    public void moveBubble(){
+        panel.setLayoutY(panel.getLayoutY() - 1);
+    }
 }
