@@ -60,6 +60,9 @@ public class BubbleFrame {
         scene.setCursor(Cursor.HAND);
         scene.getStylesheets().add(BubbleFrame.class.getResource("shield.css").toExternalForm());
         scene.getStylesheets().add(BubbleFrame.class.getResource("bubble.css").toExternalForm());
+        scene.getStylesheets().add(BubbleFrame.class.getResource("bulb.css").toExternalForm());
+        scene.getStylesheets().add(BubbleFrame.class.getResource("face.css").toExternalForm());
+        scene.getStylesheets().add(BubbleFrame.class.getResource("megaphone.css").toExternalForm());
 
                 scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -84,7 +87,6 @@ public class BubbleFrame {
 
         String shapeSet;
         GridPane grid = new GridPane();
-        //BubbleBurstHandler bubbleBurstHandler = new BubbleBurstHandler(this, paneControl);
         grid.setPadding(new Insets(10, 10, 10, 10));
 
         grid.setVgap(5);
@@ -93,19 +95,13 @@ public class BubbleFrame {
         grid.setAlignment(Pos.TOP_LEFT);
 
         switch (shape) {
-            case "shield":
-                grid = setSize(grid, "shield");
-                grid.getStyleClass().add("shield");
-                shapeSet = "shield";
-                break;
             case "bubble":
                 grid = setSize(grid, "bubble");
                 grid.getStyleClass().add("bubble");
                 shapeSet = "bubble";
                 break;
-            case "random":
             case "empty":
-                int number = (int) (Math.random() * 2);
+                int number = (int) (Math.random() * 4);
                 switch (number) {
                     case 0:
                         grid = setSize(grid, "shield");
@@ -113,14 +109,24 @@ public class BubbleFrame {
                         shapeSet = "shield";
                         break;
                     case 1:
-                        grid = setSize(grid, "bubble");
-                        grid.getStyleClass().add("bubble");
-                        shapeSet = "bubble";
+                        grid = setSize(grid, "bulb");
+                        grid.getStyleClass().add("bulb");
+                        shapeSet = "bulb";
+                        break;
+                    case 2:
+                        grid = setSize(grid, "face");
+                        grid.getStyleClass().add("face");
+                        shapeSet = "face";
+                        break;
+                    case 3:
+                        grid = setSize(grid, "megaphone");
+                        grid.getStyleClass().add("megaphone");
+                        shapeSet = "megaphone";
                         break;
                     default:
-                        grid = setSize(grid, "bubble");
-                        grid.getStyleClass().add("bubble");
-                        shapeSet = "bubble";
+                        grid = setSize(grid, "shield");
+                        grid.getStyleClass().add("shield");
+                        shapeSet = "shield";
                         break;
                 }
                 break;
@@ -133,8 +139,6 @@ public class BubbleFrame {
         }
         grid.setLayoutX(getRandomInt((int) (stage.getScene().getWidth())) / 1.1);
         grid.setLayoutY(stage.getScene().getHeight());
-        //grid.setOnMouseClicked(bubbleBurstHandler);
-        //grid.setOnMouseEntered(bubbleBurstHandler);
 
         grid.setRotate(randomizer.nextInt(25 + 1 + 25) - 25);
         Label user = new Label();
@@ -144,6 +148,7 @@ public class BubbleFrame {
         user.setWrapText(true);
         tweet.setMaxWidth(150);
         tweet.setWrapText(true);
+        tweet.setTextFill(Color.WHITE);
         tweet.setText(text);
 
         if (!shape.equals("empty")) {
@@ -174,8 +179,6 @@ public class BubbleFrame {
         paneControl.setPanel(grid);
         paneControl.setUserName(user.getText());
         paneControl.setTweetText(tweet.getText());
-//        bubbleManager = new BubbleManager(paneControl,this);
-//        bubbleManager.scheduleBubbleMovement();
         bubbles.add(paneControl);
         group.getChildren().add(grid);
     }
@@ -189,6 +192,18 @@ public class BubbleFrame {
                 break;
             case "bubble":
                 grid.setMinHeight(300);
+                grid.setMinWidth(350);
+                break;
+            case "bulb":
+                grid.setMinHeight(350);
+                grid.setMinWidth(300);
+                break;
+            case "megaphone":
+                grid.setMinHeight(300);
+                grid.setMinWidth(350);
+                break;
+            case "face":
+                grid.setMinHeight(350);
                 grid.setMinWidth(350);
                 break;
         }
@@ -268,3 +283,4 @@ public class BubbleFrame {
     }
 
 }
+

@@ -15,22 +15,13 @@ public class BubbleManager extends Timer {
     private BubbleFrameController bubbleFrameController = null;
     private BubbleFrame bubbleFrame = null;
     private Random randomizer = new Random();
-    List<Status> tweets;
-    private PaneControl paneControl;
+    ArrayList<Status> tweets;
 
     public BubbleManager(BubbleFrameController bubbleFrameController) {
         this.bubbleFrameController = bubbleFrameController;
         this.bubbleFrame = bubbleFrameController.getBubbleFrame();
     }
 
-//    public BubbleManager(PaneControl paneControl,BubbleFrame bubbleFrame) {
-//        this.paneControl=paneControl;
-//        this.bubbleFrame=bubbleFrame;
-//    }
-
-//    public void scheduleBubbleMovement(){
-//        schedule(getMoveSingleBubbleTask(), Calendar.getInstance().getTime(), 30);
-//    }
 
     public void scheduleBubbleTasks() {
         schedule(twitterSearch(), Calendar.getInstance().getTime(), 40000);
@@ -41,21 +32,6 @@ public class BubbleManager extends Timer {
 
 
     }
-
-//    private TimerTask getMoveSingleBubbleTask() {
-//        return new UIUpdateTimerTask() {
-//            @Override
-//            public void uiUpdate() {
-//                if (paneControl.getPanel().getLayoutY()<=10) {
-//                    bubbleFrame.burstTheBubble(paneControl);
-//                }else {
-//                    paneControl.moveBubble();
-//                }
-//
-//
-//            }
-//        };
-//    }
 
     private TimerTask getMoveBubblesTask() {
         return new UIUpdateTimerTask() {
@@ -73,22 +49,16 @@ public class BubbleManager extends Timer {
             @Override
             public void uiUpdate() {
                 int randomNumber = bubbleFrame.getRandomInt(100);
-                if (randomNumber > 50) {
+                if (randomNumber > 50 && randomNumber<74) {
                     Status tweet;
+                    int size = tweets.size();
                     synchronized (this) {
-                        int size = tweets.size();
-
                         tweet = tweets.get(randomizer.nextInt(size));
                     }
 
-                    if (tweet.getText().toLowerCase().contains("like")) {
-                        bubbleFrame.addBubble("@" + tweet.getUser().getScreenName(), tweet.getText(), "shield");
-                    } else if (tweet.getText().toLowerCase().contains("dislike")) {
-                        bubbleFrame.addBubble("@" + tweet.getUser().getScreenName(), tweet.getText(), "bubble");
-                    } else {
-                        bubbleFrame.addBubble("@" + tweet.getUser().getScreenName(), tweet.getText(),"random");
-                    }
-                } else if (randomNumber > 90) {
+                    bubbleFrame.addBubble("@" + tweet.getUser().getScreenName(), tweet.getText(), "bubble");
+
+                } else if (randomNumber > 75) {
                     bubbleFrame.addBubble("", "", "empty");
                 }
             }
@@ -103,10 +73,26 @@ public class BubbleManager extends Timer {
                 Twitter twitter = new TwitterFactory().getInstance();
                 try {
                     synchronized (this) {
-                        Query query = new Query("trump");
-                        QueryResult result;
-                        result = twitter.search(query);
-                        tweets = result.getTweets();
+                        Query query = new Query("#YourNSS");
+                        Query query1 = new Query("#YourVoice");
+                        Query query2 = new Query("#YourMiddlesexYourVoice");
+                        Query query3 = new Query("#MDXNSS");
+                        Query query4 = new Query("#MiddlesexNSS");
+
+                        QueryResult result = twitter.search(query);
+                        QueryResult result1 = twitter.search(query1);
+                        QueryResult result2 = twitter.search(query2);
+                        QueryResult result3 = twitter.search(query3);
+                        QueryResult result4 = twitter.search(query4);
+
+                        tweets = new ArrayList<>();
+
+                        tweets.addAll(result.getTweets());
+                        tweets.addAll(result1.getTweets());
+                        tweets.addAll(result2.getTweets());
+                        tweets.addAll(result3.getTweets());
+                        tweets.addAll(result4.getTweets());
+
                     }
 
                 } catch (TwitterException te) {
