@@ -23,39 +23,39 @@ public class BubbleManager extends Timer {
         this.bubbleFrame = bubbleFrameController.getBubbleFrame();
     }
 
-    public BubbleManager(PaneControl paneControl,BubbleFrame bubbleFrame) {
-        this.paneControl=paneControl;
-        this.bubbleFrame=bubbleFrame;
-    }
+//    public BubbleManager(PaneControl paneControl,BubbleFrame bubbleFrame) {
+//        this.paneControl=paneControl;
+//        this.bubbleFrame=bubbleFrame;
+//    }
 
-    public void scheduleBubbleMovement(){
-        schedule(getMoveSingleBubbleTask(), Calendar.getInstance().getTime(), 30);
-    }
+//    public void scheduleBubbleMovement(){
+//        schedule(getMoveSingleBubbleTask(), Calendar.getInstance().getTime(), 30);
+//    }
 
     public void scheduleBubbleTasks() {
         schedule(twitterSearch(), Calendar.getInstance().getTime(), 40000);
 
-        //schedule(getMoveBubblesTask(), Calendar.getInstance().getTime(), 30);
+        schedule(getMoveBubblesTask(), Calendar.getInstance().getTime(), 50);
 
         schedule(getAddBubblesTask(), Calendar.getInstance().getTime(), 3000);
 
 
     }
 
-    private TimerTask getMoveSingleBubbleTask() {
-        return new UIUpdateTimerTask() {
-            @Override
-            public void uiUpdate() {
-                if (paneControl.getPanel().getLayoutY()<=10) {
-                    bubbleFrame.burstTheBubble(paneControl);
-                }else {
-                    paneControl.moveBubble();
-                }
-
-
-            }
-        };
-    }
+//    private TimerTask getMoveSingleBubbleTask() {
+//        return new UIUpdateTimerTask() {
+//            @Override
+//            public void uiUpdate() {
+//                if (paneControl.getPanel().getLayoutY()<=10) {
+//                    bubbleFrame.burstTheBubble(paneControl);
+//                }else {
+//                    paneControl.moveBubble();
+//                }
+//
+//
+//            }
+//        };
+//    }
 
     private TimerTask getMoveBubblesTask() {
         return new UIUpdateTimerTask() {

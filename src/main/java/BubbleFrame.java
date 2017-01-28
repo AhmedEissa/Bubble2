@@ -1,15 +1,18 @@
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +36,17 @@ public class BubbleFrame {
     private BubbleManager bubbleManager = null;
 
     private int sceneWidth = 1280, sceneHeight = 960;
+    private static double xOffset = 0;
+    private static double yOffset = 0;
 
     public BubbleFrame() {
 
     }
 
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         sceneWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
         sceneHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         stage = primaryStage;
         stage.setTitle("Bubble Burst");
         group = new Group();
@@ -54,6 +60,22 @@ public class BubbleFrame {
         scene.setCursor(Cursor.HAND);
         scene.getStylesheets().add(BubbleFrame.class.getResource("shield.css").toExternalForm());
         scene.getStylesheets().add(BubbleFrame.class.getResource("bubble.css").toExternalForm());
+
+                scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = primaryStage.getX() - event.getScreenX();
+                yOffset = primaryStage.getY() - event.getScreenY();
+            }
+        });
+        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                primaryStage.setX(event.getScreenX() + xOffset);
+                primaryStage.setY(event.getScreenY() + yOffset);
+            }
+        });
+
         stage.show();
     }
 
@@ -152,8 +174,8 @@ public class BubbleFrame {
         paneControl.setPanel(grid);
         paneControl.setUserName(user.getText());
         paneControl.setTweetText(tweet.getText());
-        bubbleManager = new BubbleManager(paneControl,this);
-        bubbleManager.scheduleBubbleMovement();
+//        bubbleManager = new BubbleManager(paneControl,this);
+//        bubbleManager.scheduleBubbleMovement();
         bubbles.add(paneControl);
         group.getChildren().add(grid);
     }
