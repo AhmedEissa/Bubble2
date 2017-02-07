@@ -35,7 +35,7 @@ public class BubbleFrame {
     private Stage stage = null;
     private BubbleManager bubbleManager = null;
 
-    private int sceneWidth = 1280, sceneHeight = 960;
+    private int sceneWidth = 3840, sceneHeight = 4320;
     private static double xOffset = 0;
     private static double yOffset = 0;
 
@@ -44,7 +44,7 @@ public class BubbleFrame {
     }
 
     public void start(final Stage primaryStage) {
-        sceneWidth = (int) Screen.getPrimary().getVisualBounds().getWidth();
+        sceneWidth = (int) Screen.getPrimary().getVisualBounds().getWidth()/3;
         sceneHeight = (int) Screen.getPrimary().getVisualBounds().getHeight();
         primaryStage.initStyle(StageStyle.UNDECORATED);
         stage = primaryStage;
@@ -64,20 +64,20 @@ public class BubbleFrame {
         scene.getStylesheets().add(BubbleFrame.class.getResource("face.css").toExternalForm());
         scene.getStylesheets().add(BubbleFrame.class.getResource("megaphone.css").toExternalForm());
 
-                scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = primaryStage.getX() - event.getScreenX();
-                yOffset = primaryStage.getY() - event.getScreenY();
-            }
-        });
-        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                primaryStage.setX(event.getScreenX() + xOffset);
-                primaryStage.setY(event.getScreenY() + yOffset);
-            }
-        });
+//                scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                xOffset = primaryStage.getX() - event.getScreenX();
+//                yOffset = primaryStage.getY() - event.getScreenY();
+//            }
+//        });
+//        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                primaryStage.setX(event.getScreenX() + xOffset);
+//                primaryStage.setY(event.getScreenY() + yOffset);
+//            }
+//        });
 
         stage.show();
     }
@@ -87,12 +87,12 @@ public class BubbleFrame {
 
         String shapeSet;
         GridPane grid = new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setPadding(new Insets(50, 0, 0, 0));
 
         grid.setVgap(5);
         grid.setHgap(5);
 
-        grid.setAlignment(Pos.TOP_LEFT);
+        grid.setAlignment(Pos.BASELINE_CENTER);
 
         switch (shape) {
             case "bubble":
@@ -191,8 +191,8 @@ public class BubbleFrame {
                 grid.setMinWidth(300);
                 break;
             case "bubble":
-                grid.setMinHeight(300);
-                grid.setMinWidth(350);
+                grid.setMinHeight(350);
+                grid.setMinWidth(400);
                 break;
             case "bulb":
                 grid.setMinHeight(350);

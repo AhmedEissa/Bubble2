@@ -28,7 +28,7 @@ public class BubbleManager extends Timer {
 
         schedule(getMoveBubblesTask(), Calendar.getInstance().getTime(), 50);
 
-        schedule(getAddBubblesTask(), Calendar.getInstance().getTime(), 3000);
+        schedule(getAddBubblesTask(), Calendar.getInstance().getTime(), 6000);
 
 
     }
@@ -74,24 +74,42 @@ public class BubbleManager extends Timer {
                 try {
                     synchronized (this) {
                         Query query = new Query("#YourNSS");
-                        Query query1 = new Query("#YourVoice");
+                        //Query query1 = new Query("#YourVoice");
                         Query query2 = new Query("#YourMiddlesexYourVoice");
                         Query query3 = new Query("#MDXNSS");
                         Query query4 = new Query("#MiddlesexNSS");
+                        Query query5 = new Query("#YOURNSS");
+                        Query query6 = new Query("#yournss");
+                        Query query7 = new Query("#Yournss");
+                        Query query8 = new Query("#YourNss");
+                        Query query9 = new Query("#yourNSS");
+
 
                         QueryResult result = twitter.search(query);
-                        QueryResult result1 = twitter.search(query1);
+                        //QueryResult result1 = twitter.search(query1);
                         QueryResult result2 = twitter.search(query2);
                         QueryResult result3 = twitter.search(query3);
                         QueryResult result4 = twitter.search(query4);
+                        QueryResult result5 = twitter.search(query5);
+                        QueryResult result6 = twitter.search(query6);
+                        QueryResult result7 = twitter.search(query7);
+                        QueryResult result8 = twitter.search(query8);
+                        QueryResult result9 = twitter.search(query9);
+
 
                         tweets = new ArrayList<>();
 
                         tweets.addAll(result.getTweets());
-                        tweets.addAll(result1.getTweets());
+                        //tweets.addAll(result1.getTweets());
                         tweets.addAll(result2.getTweets());
                         tweets.addAll(result3.getTweets());
                         tweets.addAll(result4.getTweets());
+                        tweets.addAll(result5.getTweets());
+                        tweets.addAll(result6.getTweets());
+                        tweets.addAll(result7.getTweets());
+                        tweets.addAll(result8.getTweets());
+                        tweets.addAll(result9.getTweets());
+                        //System.out.println(tweets.size());
 
                     }
 
